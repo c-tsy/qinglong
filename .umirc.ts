@@ -1,7 +1,8 @@
 import { defineConfig } from 'umi';
-const CompressionPlugin = require('compression-webpack-plugin');
 
 export default defineConfig({
+  base: './',
+  publicPath: '//npm.tansuyun.cn/qlcdn/',
   hash: true,
   layout: false,
   nodeModulesTransform: {
@@ -19,15 +20,17 @@ export default defineConfig({
       ws: true,
     },
   },
+  outputPath: 'dist',
+
   chainWebpack: (config) => {
-    config.plugin('compression-webpack-plugin').use(
-      new CompressionPlugin({
-        algorithm: 'gzip',
-        test: new RegExp('\\.(js|css)$'),
-        threshold: 10240,
-        minRatio: 0.6,
-      }),
-    );
+    // config.plugin('compression-webpack-plugin').use(
+    //   new CompressionPlugin({
+    //     algorithm: 'gzip',
+    //     test: new RegExp('\\.(js|css)$'),
+    //     threshold: 10240,
+    //     minRatio: 0.6,
+    //   }),
+    // );
   },
   externals: {
     react: 'window.React',

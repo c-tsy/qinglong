@@ -23,15 +23,6 @@ import { useCtx, useTheme } from '@/utils/hooks';
 import { message, Badge, Modal, Avatar, Dropdown, Menu, Image } from 'antd';
 // @ts-ignore
 import SockJS from 'sockjs-client';
-import * as Sentry from '@sentry/react';
-import { Integrations } from '@sentry/tracing';
-
-Sentry.init({
-  dsn: 'https://ea2fede373244db99c536210b910d9da@o1051273.ingest.sentry.io/6047851',
-  integrations: [new Integrations.BrowserTracing()],
-  release: version,
-  tracesSampleRate: 1.0,
-});
 
 export default function (props: any) {
   const ctx = useCtx();
@@ -181,9 +172,6 @@ export default function (props: any) {
       console.log(
         `从开始至load总耗时: ${timing.loadEventEnd - timing.navigationStart}`,
       );
-      Sentry.captureMessage(
-        `白屏时间 ${timing.responseStart - timing.navigationStart}`,
-      );
     };
   }, []);
 
@@ -231,7 +219,6 @@ export default function (props: any) {
     <ProLayout
       selectedKeys={[props.location.pathname]}
       loading={loading}
-      ErrorBoundary={Sentry.ErrorBoundary}
       logo={
         <Image
           preview={false}
